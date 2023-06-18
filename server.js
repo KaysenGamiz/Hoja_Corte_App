@@ -2,6 +2,8 @@ const express = require('express')
 const path = require('path');
 const cors = require('cors');
 const { app, BrowserWindow } = require('electron');
+const mongoose = require('mongoose');
+const router = require(path.join(__dirname, 'app', 'controllers', 'router.js'))
 
 // Electron App
 app.whenReady().then(() => {
@@ -33,9 +35,7 @@ server.use(express.json());
 server.use(cors());
 const PORT = process.env.PORT || 3000;
 
-server.get('/', (req, res) => {
-    res.send('¡Hola mundo!');
-  });
+server.use('/', router);
 
 server.listen(PORT, () => {
     console.log("server running on port " + PORT);
