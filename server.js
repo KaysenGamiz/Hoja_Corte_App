@@ -3,14 +3,17 @@ const path = require('path');
 const cors = require('cors');
 const { app, BrowserWindow } = require('electron');
 
+// Electron App
 app.whenReady().then(() => {
     const mainWindow = new BrowserWindow({
         titleBarStyle: 'hidden',
         titleBarOverlay: true,
-        icon: './public/imgs/icon.ico'
+        icon: path.join(__dirname, 'app', 'public', 'imgs', 'icon.ico')
     });
   
-    mainWindow.loadFile(path.join(__dirname, 'views', 'index.html'));
+    console.log(__dirname)
+
+    mainWindow.loadFile(path.join(__dirname, 'app','views', 'index.html'));
     mainWindow.maximize();
   
     mainWindow.on('closed', () => {
@@ -24,6 +27,7 @@ app.on('window-all-closed', () => {
   }
 })
 
+// Servidor
 const server = express();
 server.use(express.json());
 server.use(cors());
