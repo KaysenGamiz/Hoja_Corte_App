@@ -7,3 +7,5 @@ const router = express.Router();
 const corteRouter = require(path.join(__dirname, '../routes/', 'corteRoute.js'));
 
 router.use('/corte', corteRouter);
+
+module.exports = router;

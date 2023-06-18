@@ -4,6 +4,7 @@ const cors = require('cors');
 const { app, BrowserWindow } = require('electron');
 const mongoose = require('mongoose');
 const router = require(path.join(__dirname, 'app', 'controllers', 'router.js'))
+const config = require(path.join(__dirname, 'app', 'config', 'config.js'));
 
 // Electron App
 app.whenReady().then(() => {
@@ -29,6 +30,20 @@ app.on('window-all-closed', () => {
   }
 })
 
+// Mongo DB
+
+async function connect(){
+  const mongoConection = `mongodb+srv://admin:${config.password}@cortes.9iadh5h.mongodb.net/`;
+  let db = mongoose.connection;
+  db.on('connecting', () => {
+      console.log('Connecting...');
+  });
+  db.on('connected', () => {
+      console.log('Connected succesfully');
+  });
+  await mongoose.connect(mongoConection, {useNewUrlParser: true});
+}
+
 // Servidor
 const server = express();
 server.use(express.json());
@@ -36,6 +51,8 @@ server.use(cors());
 const PORT = process.env.PORT || 3000;
 
 server.use('/', router);
+
+connect();
 
 server.listen(PORT, () => {
     console.log("server running on port " + PORT);
