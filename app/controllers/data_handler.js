@@ -47,11 +47,6 @@ async function getCortes(){
         const resultados = await Corte.find();
         
         if (resultados.length > 0) {
-          console.log('Datos encontrados:');
-          resultados.forEach((documento) => {
-            console.log(documento);
-          });
-
           return resultados;
         } else {
           console.log('No se encontraron datos en la base de datos.');
