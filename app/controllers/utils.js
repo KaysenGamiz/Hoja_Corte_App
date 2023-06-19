@@ -8,7 +8,6 @@ async function getLatestRCC() {
         .limit(1); // Limitar el resultado a un solo documento
   
       if (result) {
-        console.log('Último RCC encontrado:', result.RCC);
         return result.RCC;
       } else {
         console.log('No se encontró ningún RCC.');

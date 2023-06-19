@@ -171,7 +171,52 @@ class CorteObj {
         } catch (error) {
             console.log('Error al obtener el último RCC:', error);
         }
-      }
+    }
+
+    // Funciones estaticas
+
+    static fromJSON(jsonValue) {
+        const parsedJson = JSON.parse(jsonValue);
+        const {
+            efectivo,
+            dolares,
+            retiroEnEfectivo,
+            tarjeta,
+            comprasEfectivo,
+            gastosEfectivo,
+            vales,
+            devoluciones,
+            totalSistema,
+            diferencia,
+            recibido,
+            cajero,
+            fecha,
+            hora
+        } = parsedJson;
+
+        return new CorteObj(efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalSistema, diferencia, recibido, cajero, fecha, hora);
+    }
+
+    static fromObject(obj) {
+        const {
+            efectivo,
+            dolares,
+            retiroEnEfectivo,
+            tarjeta,
+            comprasEfectivo,
+            gastosEfectivo,
+            vales,
+            devoluciones,
+            totalSistema,
+            diferencia,
+            recibido,
+            cajero,
+            fecha,
+            hora
+        } = obj;
+
+        return new CorteObj(efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalSistema, diferencia, recibido, cajero, fecha, hora); 
+    }
       
 }
 
