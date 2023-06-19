@@ -33,7 +33,7 @@ app.on('window-all-closed', () => {
 // Mongo DB
 
 async function connect(){
-  const mongoConection = `mongodb+srv://admin:${config.password}@cortes.9iadh5h.mongodb.net/`;
+  const mongoConection = `mongodb+srv://admin:${config.password}@cortes.9iadh5h.mongodb.net/CortesDB`;
   let db = mongoose.connection;
   db.on('connecting', () => {
       console.log('Connecting...');
@@ -51,6 +51,10 @@ server.use(cors());
 const PORT = process.env.PORT || 3000;
 
 server.use('/', router);
+
+server.get('/', (req, res) => {
+  res.send("Hola mundo")
+})
 
 connect();
 

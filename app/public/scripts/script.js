@@ -367,7 +367,7 @@ function calcularDiferencia() {
   var totalDevoluciones = parseFloat(document.getElementById("totalAmountDevoluciones").textContent); // Obtener el valor de totalAmountDevoluciones y convertirlo a número
   console.log(totalDevoluciones);
 
-  var diferencia = totalSistema - sumaTotal - totalDevoluciones; // Calcular la diferencia, considerando las devoluciones
+  diferencia = totalSistema - sumaTotal - totalDevoluciones; // Calcular la diferencia, considerando las devoluciones
 
   // Actualizar el contenido del span correspondiente según la diferencia
   var sobranteSpan = document.querySelector(".SobrantePlace");
