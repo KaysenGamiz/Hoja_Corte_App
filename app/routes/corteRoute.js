@@ -39,7 +39,7 @@ router.get('/rcc', async (req, res) => {
 // POST Crear Corte
 router.post('/createCorte', async (req, res) => {
     let nuevoCorte;
-  
+    console.log(req.body)
     if (typeof req.body === 'object') {
         nuevoCorte = CorteObj.fromObject(req.body);
     } else if (typeof req.body === 'string') {

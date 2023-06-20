@@ -57,6 +57,37 @@ function imprimir(){
   obtenerGastosEfectivo(); 
   obtenerVales();
   obtenerDevoluciones();
+
+  // Validar variables requeridas
+  if (!efectivo.length && !Object.keys(comprasEfectivo).length && !Object.keys(gastosEfectivo).length && !Object.keys(vales).length && !Object.keys(dolares).length && !diferencia) {
+    alert("Debe ingresar al menos una de las siguientes variables: efectivo, comprasEfectivo, gastosEfectivo, vales, diferencia o dolares.");
+    return;
+  }
+
+  if (!totalSistema || !recibido || !cajero) {
+    alert("Las variables totalSistema, recibido y cajero son requeridas.");
+    return;
+  }
+
+  var corteData = {
+    efectivo: efectivo,
+    dolares: dolares,
+    retiroEnEfectivo: retiroEnEfectivo,
+    tarjeta: tarjeta,
+    comprasEfectivo: comprasEfectivo,
+    gastosEfectivo: gastosEfectivo,
+    vales: vales,
+    devoluciones: devoluciones,
+    totalSistema: totalSistema,
+    diferencia: diferencia,
+    recibido: recibido,
+    cajero: cajero,
+    fecha: fecha,
+    hora: hora
+  };
+
+  createCorteFromWeb(corteData);
+
   window.print();
 }
 
@@ -358,15 +389,12 @@ function obtenerDevoluciones() {
 
 function calcularDiferencia() {
   var totalSistema = parseFloat(document.getElementsByName("fname38")[0].value); // Obtener el valor de totalSistema y convertirlo a número
-  console.log(totalSistema);
 
   var totalFinal = document.querySelector(".TotalFinal").innerHTML;
   var totalSinComa = totalFinal.replace(",", "");
   var sumaTotal = parseFloat(totalSinComa); // Obtener la suma total del span correspondiente y convertirla a número
-  console.log(sumaTotal);
 
   var totalDevoluciones = parseFloat(document.getElementById("totalAmountDevoluciones").textContent); // Obtener el valor de totalAmountDevoluciones y convertirlo a número
-  console.log(totalDevoluciones);
 
   diferencia = totalSistema - sumaTotal - totalDevoluciones; // Calcular la diferencia, considerando las devoluciones
 
