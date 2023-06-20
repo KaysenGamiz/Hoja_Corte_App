@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const path = require('path');
+const { getLatestRCC } = require(path.join(__dirname, '..', 'controllers', 'utils.js'));
 const { createCorte , getCortes } = require(path.join(__dirname, '..', 'controllers', 'data_handler.js'));
 const { CorteObj } = require(path.join(__dirname, '..', 'controllers','corte.js'));
 
@@ -19,6 +20,23 @@ router.get('/', async (req, res) => {
     }
 });
 
+// GET RCC para hacer display en nuevo corte, por eso la suma
+router.get('/rcc', async (req, res) => {
+    try {
+        const rcc = await getLatestRCC();
+        let rccNums = parseInt(rcc.replace('RCC', ''));
+        rccNums += 1;
+
+        let newRcc = 'RCC' + rccNums;
+
+        res.status(200).send(newRcc);
+    } catch (error) {
+        console.log('Error al obtener el último RCC:', error);
+        res.status(500).json({ error: 'Error al obtener los cortes' });
+    }
+});
+
+// POST Crear Corte
 router.post('/createCorte', async (req, res) => {
     let nuevoCorte;
   

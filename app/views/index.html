@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../public/style/button.css">
     <link rel="stylesheet" href="../public/style/print.css">
     <script src="../public/scripts/script.js"></script>
-    <script src="./controllers/corte.js"></script>
+    <script src="../public/scripts/api.js"></script>
 </head>
 <body>
 
@@ -19,7 +19,7 @@
         </div>
         <div>
             <nav class="infoText">
-                <p class="nombre">Botica San Jose <br> Independencia <br> <span class="Corte" style="color:red">CORTE: <span class="idCorte" style="color: black;">RCC5982</span></span> 
+                <p class="nombre">Botica San Jose <br> Independencia <br> <span class="Corte" style="color:red">CORTE: <span class="idCorte" id="idCorte" style="color: black;"></span></span> 
                 <br> <br> Fecha: <span id="fecha"></span> <br> Hora: <span id="hora"></span>
                 <button class="button-14 imprimir" onclick="imprimir();">Imprimir</button>
                 </p> 

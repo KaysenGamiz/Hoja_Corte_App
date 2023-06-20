@@ -14,6 +14,7 @@ var fecha = '', hora = '';
 
 document.addEventListener("DOMContentLoaded", function() {
   mostrarFechaHora();
+  actualizarIdCorte();
 });
 
 function mostrarFechaHora() {
