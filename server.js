@@ -20,31 +20,31 @@ async function connect(){
   await mongoose.connect(mongoConection, {useNewUrlParser: true});
 
   
-// Electron App
-app.whenReady().then(() => {
-  const mainWindow = new BrowserWindow({
-      titleBarStyle: 'hidden',
-      titleBarOverlay: true,
-      icon: path.join(__dirname, 'app', 'public', 'imgs', 'icon.ico')
+  // Electron App
+  app.whenReady().then(() => {
+    const mainWindow = new BrowserWindow({
+        titleBarStyle: 'hidden',
+        titleBarOverlay: true,
+        icon: path.join(__dirname, 'app', 'public', 'imgs', 'icon.ico')
+    });
+
+    console.log(__dirname)
+
+    mainWindow.loadFile(path.join(__dirname, 'app','views', 'index.html'));
+    mainWindow.maximize();
+
+    mainWindow.on('closed', () => {
+      app.quit();
+    });
   });
 
-  console.log(__dirname)
+  app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+  })
 
-  mainWindow.loadFile(path.join(__dirname, 'app','views', 'index.html'));
-  mainWindow.maximize();
-
-  mainWindow.on('closed', () => {
-    app.quit();
-  });
-});
-
-app.on('window-all-closed', () => {
-if (process.platform !== 'darwin') {
-  app.quit()
-}
-})
-
-}
+};
 
 // Servidor
 const server = express();
