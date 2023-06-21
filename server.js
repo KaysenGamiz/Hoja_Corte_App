@@ -6,30 +6,6 @@ const mongoose = require('mongoose');
 const router = require(path.join(__dirname, 'app', 'controllers', 'router.js'))
 const config = require(path.join(__dirname, 'app', 'config', 'config.js'));
 
-// Electron App
-app.whenReady().then(() => {
-    const mainWindow = new BrowserWindow({
-        titleBarStyle: 'hidden',
-        titleBarOverlay: true,
-        icon: path.join(__dirname, 'app', 'public', 'imgs', 'icon.ico')
-    });
-  
-    console.log(__dirname)
-
-    mainWindow.loadFile(path.join(__dirname, 'app','views', 'index.html'));
-    mainWindow.maximize();
-  
-    mainWindow.on('closed', () => {
-      app.quit();
-    });
-});
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-
 // Mongo DB
 
 async function connect(){
@@ -42,6 +18,32 @@ async function connect(){
       console.log('Connected succesfully');
   });
   await mongoose.connect(mongoConection, {useNewUrlParser: true});
+
+  
+// Electron App
+app.whenReady().then(() => {
+  const mainWindow = new BrowserWindow({
+      titleBarStyle: 'hidden',
+      titleBarOverlay: true,
+      icon: path.join(__dirname, 'app', 'public', 'imgs', 'icon.ico')
+  });
+
+  console.log(__dirname)
+
+  mainWindow.loadFile(path.join(__dirname, 'app','views', 'index.html'));
+  mainWindow.maximize();
+
+  mainWindow.on('closed', () => {
+    app.quit();
+  });
+});
+
+app.on('window-all-closed', () => {
+if (process.platform !== 'darwin') {
+  app.quit()
+}
+})
+
 }
 
 // Servidor

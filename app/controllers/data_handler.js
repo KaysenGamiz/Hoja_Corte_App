@@ -3,20 +3,6 @@ const { Corte } = require(path.join(__dirname, 'corteSchema.js'));
 const { CorteObj } = require(path.join(__dirname, 'corte.js'));
 const mongoose = require('mongoose');
 
-// async function connect(){
-//     const mongoConection = `mongodb+srv://admin:hOSqjRp4kzteVwZL@cortes.9iadh5h.mongodb.net/CortesDB`;
-//     let db = mongoose.connection;
-//     db.on('connecting', () => {
-//         console.log('Connecting...');
-//     });
-//     db.on('connected', () => {
-//         console.log('Connected succesfully');
-//     });
-//     await mongoose.connect(mongoConection, {useNewUrlParser: true});
-// }
-
-// connect();
-
 async function createCorte(corteObject) {
     await corteObject.initializeRCC();
 
