@@ -12,10 +12,10 @@ const corteSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.Mixed
     },
     retiroEnEfectivo: {
-        type: String
+        type: Number
     },
     tarjeta: {
-        type: String
+        type: Number
     },
     comprasEfectivo: {
         type: mongoose.Schema.Types.Mixed
@@ -28,6 +28,9 @@ const corteSchema = new mongoose.Schema({
     },
     devoluciones: {
         type: mongoose.Schema.Types.Mixed
+    },
+    totalCorte: {
+        type: Number
     },
     totalSistema: {
         type: Number

@@ -1,17 +1,3 @@
-var efectivo = [];
-var dolares = {};
-var retiroEnEfectivo = 0;
-var tarjeta = 0;
-var comprasEfectivo = {};
-var gastosEfectivo = {};
-var vales = {};
-var devoluciones = {};
-var totalSistema = 0;
-var diferencia = 0;
-var recibido = '';
-var cajero = '';
-var fecha = '', hora = '';
-
 document.addEventListener("DOMContentLoaded", function() {
   mostrarFechaHora();
   actualizarIdCorte();
@@ -52,7 +38,8 @@ function imprimir(){
   calculateTotalByClassName('GastosEfectivo', 'totalAmountGastos');
   calculateTotalByClassName('Vales', 'totalAmountVales');
   calculateTotalByClassName('Devoluciones', 'totalAmountDevoluciones');   
-  calcularSumaTotal();
+  totalCorte = calcularSumaTotal();
+  diferencia = calcularDiferencia();
   obtenerComprasEfectivo();
   obtenerGastosEfectivo(); 
   obtenerVales();
@@ -69,22 +56,48 @@ function imprimir(){
     return;
   }
 
-  var corteData = {
-    efectivo: efectivo,
-    dolares: dolares,
-    retiroEnEfectivo: retiroEnEfectivo,
-    tarjeta: tarjeta,
-    comprasEfectivo: comprasEfectivo,
-    gastosEfectivo: gastosEfectivo,
-    vales: vales,
-    devoluciones: devoluciones,
-    totalSistema: totalSistema,
-    diferencia: diferencia,
-    recibido: recibido,
-    cajero: cajero,
-    fecha: fecha,
-    hora: hora
-  };
+// Convertir valores de cada clave a tipo float en comprasEfectivo
+const comprasEfectivoFloat = {};
+for (const key in comprasEfectivo) {
+  comprasEfectivoFloat[key] = parseFloat(comprasEfectivo[key]);
+}
+
+// Convertir valores de cada clave a tipo float en gastosEfectivo
+const gastosEfectivoFloat = {};
+for (const key in gastosEfectivo) {
+  gastosEfectivoFloat[key] = parseFloat(gastosEfectivo[key]);
+}
+
+// Convertir valores de cada clave a tipo float en vales
+const valesFloat = {};
+for (const key in vales) {
+  valesFloat[key] = parseFloat(vales[key]);
+}
+
+// Convertir valores de cada clave a tipo float en devoluciones
+const devolucionesFloat = {};
+for (const key in devoluciones) {
+  devolucionesFloat[key] = parseFloat(devoluciones[key]);
+}
+
+// Crear el objeto corteData con las propiedades actualizadas
+var corteData = {
+  efectivo: efectivo,
+  dolares: dolares,
+  retiroEnEfectivo: retiroEnEfectivo,
+  tarjeta: tarjeta,
+  comprasEfectivo: comprasEfectivoFloat,
+  gastosEfectivo: gastosEfectivoFloat,
+  vales: valesFloat,
+  devoluciones: devolucionesFloat,
+  totalCorte: totalCorte,
+  totalSistema: parseFloat(totalSistema),
+  diferencia: diferencia,
+  recibido: recibido,
+  cajero: cajero,
+  fecha: fecha,
+  hora: hora
+};
 
   createCorteFromWeb(corteData);
 
@@ -293,6 +306,7 @@ function calcularSumaTotal() {
   } else {
     totalFinalElement.textContent = '_____________';
   }
+  return sumaTotal;
 }
 
 // Función para formatear el número con comas cada 1000
@@ -396,22 +410,23 @@ function calcularDiferencia() {
 
   var totalDevoluciones = parseFloat(document.getElementById("totalAmountDevoluciones").textContent); // Obtener el valor de totalAmountDevoluciones y convertirlo a número
 
-  diferencia = totalSistema - sumaTotal - totalDevoluciones; // Calcular la diferencia, considerando las devoluciones
+  var diferenciaFinal = totalSistema - sumaTotal - totalDevoluciones; // Calcular la diferencia, considerando las devoluciones
 
   // Actualizar el contenido del span correspondiente según la diferencia
   var sobranteSpan = document.querySelector(".SobrantePlace");
   var faltanteSpan = document.querySelector(".FaltantePlace");
 
-  if (diferencia < 0) {
-    sobranteSpan.textContent = diferencia * -1;
+  if (diferenciaFinal < 0) {
+    sobranteSpan.textContent = diferenciaFinal * -1;
     faltanteSpan.textContent = "___________";
-  } else if (diferencia > 0) {
+  } else if (diferenciaFinal > 0) {
     sobranteSpan.textContent = "___________";
-    faltanteSpan.textContent = Math.abs(diferencia);
+    faltanteSpan.textContent = Math.abs(diferenciaFinal);
   } else {
     sobranteSpan.textContent = "___________";
     faltanteSpan.textContent = "0";
   }
+  return diferenciaFinal
 }
 
 function actualizarTexto(input) {

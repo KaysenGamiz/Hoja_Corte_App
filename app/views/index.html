@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../public/style/style.css">
     <link rel="stylesheet" href="../public/style/button.css">
     <link rel="stylesheet" href="../public/style/print.css">
+    <script src="../public/scripts/data_variables.js"></script>
     <script src="../public/scripts/script.js"></script>
     <script src="../public/scripts/api.js"></script>
 </head>
@@ -84,7 +85,7 @@
             </div>
             <div class="input-container">
               <span class="dolar">$</span>
-              <input placeholder="" type="text" name="fname10" style="width: 90px;" autofocus oninput="validarNumeroInput(event); retiroEnEfectivo = this.value;" onkeydown="handleEnterKey(event)" class="input-navigation" />
+              <input placeholder="" type="text" name="fname10" style="width: 90px;" autofocus oninput="validarNumeroInput(event); retiroEnEfectivo = parseFloat(this.value);" onkeydown="handleEnterKey(event)" class="input-navigation" />
             </div>
           </li><br>
           <li class="TarjetaCredito">
@@ -94,7 +95,7 @@
             </div>
             <div class="input-container">
               <span class="dolar">$</span>
-              <input placeholder="" type="text" name="fname11" style="width: 90px;" autofocus oninput="validarNumeroInput(event); tarjeta = this.value;" onkeydown="handleEnterKey(event);" class="input-navigation" />
+              <input placeholder="" type="text" name="fname11" style="width: 90px;" autofocus oninput="validarNumeroInput(event); tarjeta = parseFloat(this.value);" onkeydown="handleEnterKey(event);" class="input-navigation" />
             </div>
           </li><br>
           <li class="ComprasEfectivo">

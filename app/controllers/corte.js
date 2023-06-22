@@ -8,15 +8,16 @@ class CorteException {
 }
 
 class CorteObj {
-    constructor(efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalSistema, diferencia, recibido, cajero, fecha, hora){
+    constructor(efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalCorte, totalSistema, diferencia, recibido, cajero, fecha, hora){
         this._efectivo = efectivo;
         this._dolares = dolares;
-        this._retiroEnEfectivo = retiroEnEfectivo;
-        this._tarjeta = tarjeta;
+        this._retiroEnEfectivo = parseFloat(retiroEnEfectivo);
+        this._tarjeta = parseFloat(tarjeta);
         this._comprasEfectivo = comprasEfectivo;
         this._gastosEfectivo = gastosEfectivo;
         this._vales = vales;
         this._devoluciones = devoluciones;
+        this._totalCorte = totalCorte;
         this._totalSistema = totalSistema;
         this._diferencia = diferencia;
         this._recibido = recibido;
@@ -61,6 +62,10 @@ class CorteObj {
 
     get devoluciones() {
         return this._devoluciones;
+    }
+
+    get totalCorte() {
+        return this._totalCorte;
     }
 
     get totalSistema() {
@@ -119,6 +124,10 @@ class CorteObj {
 
     set devoluciones(value) {
         this._devoluciones = value;
+    }
+
+    set totalCorte(value) {
+        this._totalCorte = value;
     }
 
     set totalSistema(value) {
@@ -186,6 +195,7 @@ class CorteObj {
             gastosEfectivo,
             vales,
             devoluciones,
+            totalCorte,
             totalSistema,
             diferencia,
             recibido,
@@ -194,7 +204,7 @@ class CorteObj {
             hora
         } = parsedJson;
 
-        return new CorteObj(efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalSistema, diferencia, recibido, cajero, fecha, hora);
+        return new CorteObj(efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalCorte, totalSistema, diferencia, recibido, cajero, fecha, hora);
     }
 
     static fromObject(obj) {
@@ -207,6 +217,7 @@ class CorteObj {
             gastosEfectivo,
             vales,
             devoluciones,
+            totalCorte, 
             totalSistema,
             diferencia,
             recibido,
@@ -215,7 +226,7 @@ class CorteObj {
             hora
         } = obj;
 
-        return new CorteObj(efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalSistema, diferencia, recibido, cajero, fecha, hora); 
+        return new CorteObj(efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalCorte, totalSistema, diferencia, recibido, cajero, fecha, hora); 
     }
       
 }

@@ -16,6 +16,7 @@ async function createCorte(corteObject) {
         gastosEfectivo: corteObject.gastosEfectivo,
         vales: corteObject.vales,
         devoluciones: corteObject.devoluciones,
+        totalCorte: corteObject.totalCorte,
         totalSistema: corteObject.totalSistema,
         diferencia: corteObject.diferencia,
         recibido: corteObject.recibido,
