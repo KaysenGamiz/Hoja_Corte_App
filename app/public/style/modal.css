@@ -37,7 +37,7 @@
 .modal-header {
     padding: 10px;
     width: 85%;
-    border-bottom: 1px solid #ddd; /* Línea gris debajo del encabezado */
+    border-bottom: 1px solid #bbb; /* Línea gris debajo del encabezado */
 }
 
 .modal-content {
@@ -52,18 +52,9 @@
     padding: 10px;
     padding-top: 20px;
     width: 85%;
-    border-top: 1px solid #ddd; /* Línea gris debajo del encabezado */
+    border-top: 1px solid #bbb; /* Línea gris debajo del encabezado */
     display: flex;
     justify-content: end;
-}
-
-.modal-close {
-    font-size: larger;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-weight: bold;
-    cursor: pointer;
 }
 
 input.input-rcc {
