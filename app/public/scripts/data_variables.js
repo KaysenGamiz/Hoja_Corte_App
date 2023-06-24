@@ -12,3 +12,4 @@ var diferencia = 0;
 var recibido = '';
 var cajero = '';
 var fecha = '', hora = '';
+var RCC = ''

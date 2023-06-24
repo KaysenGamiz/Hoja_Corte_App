@@ -1,10 +1,28 @@
 document.addEventListener('DOMContentLoaded', function(){
     var modalBg = document.querySelector('.modal-bg');
     var modalSend = document.querySelector('.modal-send');
+    var input = document.querySelector('.input-rcc');
     modalBg.classList.add('bg-active');
 
-    modalSend.addEventListener('click', function() {
-        modalBg.classList.remove('bg-active');
+    function processRccValue() {
+        var rccValue = input.value.trim(); // Se elimina cualquier espacio en blanco al inicio y al final
+        var regex = /^RCC\d{3}$/;
+
+        if (!regex.test(rccValue)) {
+          alert("Por favor, ingresa un texto válido para el RCC.");
+          return; // Se detiene el proceso si el valor del RCC está vacío
+        }
+
+        RCC = rccValue;
+        console.log("Valor del RCC:", RCC);
+        modalBg.classList.remove("bg-active");
+    }
+
+    modalSend.addEventListener("click", processRccValue);
+    input.addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        processRccValue();
+    }
     });
 
 });
