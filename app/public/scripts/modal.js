@@ -4,11 +4,14 @@ document.addEventListener('DOMContentLoaded', function(){
     var input = document.querySelector('.input-rcc');
     modalBg.classList.add('bg-active');
 
-    function processRccValue() {
+    async function processRCCValue() {
         var rccValue = input.value.trim(); // Se elimina cualquier espacio en blanco al inicio y al final
         var regex = /^RCC\d{3}$/;
 
-        if (!regex.test(rccValue)) {
+        var valueInDB = await validateRCCinDB(rccValue);
+        console.log("Value in db", valueInDB);
+
+        if (!regex.test(rccValue) || valueInDB === true) {
           alert("Por favor, ingresa un texto válido para el RCC.");
           return; // Se detiene el proceso si el valor del RCC está vacío
         }
@@ -18,10 +21,10 @@ document.addEventListener('DOMContentLoaded', function(){
         modalBg.classList.remove("bg-active");
     }
 
-    modalSend.addEventListener("click", processRccValue);
+    modalSend.addEventListener("click", processRCCValue);
     input.addEventListener("keyup", function(event) {
     if (event.key === "Enter") {
-        processRccValue();
+        processRCCValue();
     }
     });
 

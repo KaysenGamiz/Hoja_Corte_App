@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
 const path = require('path');
-const { getLatestRCC } = require(path.join(__dirname, '..', 'controllers', 'utils.js'));
+const { Corte } = require(path.join(__dirname, '..', 'controllers', 'corteSchema.js'));
+const { getLatestRCC , getLatestPlusOneRCC, checkRCCinDB} = require(path.join(__dirname, '..', 'controllers', 'utils.js'));
 const { createCorte , getCortes } = require(path.join(__dirname, '..', 'controllers', 'data_handler.js'));
 const { CorteObj } = require(path.join(__dirname, '..', 'controllers','corte.js'));
 
@@ -24,14 +24,38 @@ router.get('/', async (req, res) => {
 router.get('/rcc', async (req, res) => {
     try {
         const rcc = await getLatestRCC();
-        let rccNums = parseInt(rcc.replace('RCC', ''));
-        rccNums += 1;
 
-        let newRcc = 'RCC' + rccNums;
-
-        res.status(200).send(newRcc);
+        res.status(200).send(rcc);
     } catch (error) {
         console.log('Error al obtener el último RCC:', error);
+        res.status(500).json({ error: 'Error al obtener último RCC' });
+    }
+});
+
+router.get('/rcc-plus-one', async (req, res) => {
+    try {
+        const rcc = await getLatestPlusOneRCC();
+
+        res.status(200).send(rcc);
+    } catch (error) {
+        console.log('Error al obtener el último RCC:', error);
+        res.status(500).json({ error: 'Error al obtener último RCC' });
+    }
+});
+
+router.get('/rcc-validation', async (req, res) => {
+    try {
+        var rccToValidate = req.query.rcc;
+        var found = await checkRCCinDB(rccToValidate);
+        
+        if(found) { 
+            res.status(200).json( {found: true} );
+        } else { 
+            res.status(200).json( {found: false} );
+        }
+
+    } catch (error) {
+        console.log('Error al validar el último RCC:', error);
         res.status(500).json({ error: 'Error al obtener los cortes' });
     }
 });

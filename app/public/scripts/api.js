@@ -1,14 +1,25 @@
-async function actualizarIdCorte() {
-    try {
-      const response = await fetch('http://localhost:3000/corte/rcc');
-      const newRcc = await response.text();
-  
-      const idCorteElement = document.getElementById('idCorte');
-      idCorteElement.textContent = newRcc;
-    } catch (error) {
-      console.log('Error al obtener el último RCC:', error);
+async function validateRCCinDB(rcc) {
+  try {
+    const response = await fetch(`http://localhost:3000/corte/rcc-validation?rcc=${rcc}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const resData = await response.json();
+
+    if (resData.found === false) {
+      return false;
+    } else {
+      return true;
     }
-};
+  } catch (error) {
+    console.log('Error al obtener el último RCC:', error);
+    return false;
+  }
+}
+
 
 async function createCorteFromWeb(objetoJson) {
 
@@ -20,7 +31,7 @@ async function createCorteFromWeb(objetoJson) {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(objetoJson) // Aquí debes reemplazar "objetoJson" con tu objeto JSON
+        body: JSON.stringify(objetoJson) 
       });
   
       if (response.ok) {
