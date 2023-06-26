@@ -8,7 +8,8 @@ class CorteException {
 }
 
 class CorteObj {
-    constructor(efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalCorte, totalSistema, diferencia, recibido, cajero, fecha, hora){
+    constructor(RCC, efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalCorte, totalSistema, diferencia, recibido, cajero, fecha, hora){
+        this._RCC = RCC;
         this._efectivo = efectivo;
         this._dolares = dolares;
         this._retiroEnEfectivo = parseFloat(retiroEnEfectivo);
@@ -93,6 +94,10 @@ class CorteObj {
     }
 
     // Setters
+
+    set RCC(value) {
+        this._RCC = value;
+    }
 
     set efectivo(value) {
         this._efectivo = value;
@@ -187,6 +192,7 @@ class CorteObj {
     static fromJSON(jsonValue) {
         const parsedJson = JSON.parse(jsonValue);
         const {
+            RCC,
             efectivo,
             dolares,
             retiroEnEfectivo,
@@ -204,11 +210,12 @@ class CorteObj {
             hora
         } = parsedJson;
 
-        return new CorteObj(efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalCorte, totalSistema, diferencia, recibido, cajero, fecha, hora);
+        return new CorteObj(RCC, efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalCorte, totalSistema, diferencia, recibido, cajero, fecha, hora);
     }
 
     static fromObject(obj) {
         const {
+            RCC,
             efectivo,
             dolares,
             retiroEnEfectivo,
@@ -226,7 +233,7 @@ class CorteObj {
             hora
         } = obj;
 
-        return new CorteObj(efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalCorte, totalSistema, diferencia, recibido, cajero, fecha, hora); 
+        return new CorteObj(RCC, efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalCorte, totalSistema, diferencia, recibido, cajero, fecha, hora); 
     }
       
 }

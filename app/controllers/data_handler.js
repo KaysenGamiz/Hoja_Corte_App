@@ -4,7 +4,6 @@ const { CorteObj } = require(path.join(__dirname, 'corte.js'));
 const mongoose = require('mongoose');
 
 async function createCorte(corteObject) {
-    await corteObject.initializeRCC();
 
     const nuevoCorte = new Corte({
         RCC: corteObject.RCC,

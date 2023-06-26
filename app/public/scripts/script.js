@@ -81,6 +81,7 @@ for (const key in devoluciones) {
 
 // Crear el objeto corteData con las propiedades actualizadas
 var corteData = {
+  RCC: RCC,
   efectivo: efectivo,
   dolares: dolares,
   retiroEnEfectivo: retiroEnEfectivo,
@@ -101,6 +102,7 @@ var corteData = {
   createCorteFromWeb(corteData);
 
   window.print();
+  location.reload();
 }
 
 // Event Handler
