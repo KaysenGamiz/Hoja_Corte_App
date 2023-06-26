@@ -15,8 +15,9 @@ document.addEventListener('DOMContentLoaded', function(){
           alert("Por favor, ingresa un texto válido para el RCC.");
           return; // Se detiene el proceso si el valor del RCC está vacío
         }
-
+        var spanRCC = document.querySelector('.idCorte');        
         RCC = rccValue;
+        spanRCC.innerHTML = RCC;
         console.log("Valor del RCC:", RCC);
         modalBg.classList.remove("bg-active");
     }
