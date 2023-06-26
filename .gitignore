@@ -131,3 +131,9 @@ dist
 
 # config
 /app/config/
+
+# Electron APP
+
+/HojaCorteMSI-win32-x64
+/windows_installer
+build_installer.js
