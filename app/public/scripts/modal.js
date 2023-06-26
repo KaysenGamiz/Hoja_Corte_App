@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     async function processRCCValue() {
         var rccValue = input.value.trim(); // Se elimina cualquier espacio en blanco al inicio y al final
-        var regex = /^RCC\d{5}$/;
+        var regex = /^RCC\d{4}$/;
 
         var valueInDB = await validateRCCinDB(rccValue);
         console.log("Value in db", valueInDB);
