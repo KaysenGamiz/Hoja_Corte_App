@@ -19,32 +19,33 @@ async function connect(){
   });
   await mongoose.connect(mongoConection, {useNewUrlParser: true});
 
-  
-  // Electron App
-  app.whenReady().then(() => {
-    const mainWindow = new BrowserWindow({
-        titleBarStyle: 'hidden',
-        titleBarOverlay: true,
-        icon: path.join(__dirname, 'app', 'public', 'imgs', 'icon.ico')
-    });
+};
 
-    console.log(__dirname)
+connect();
 
-    mainWindow.loadFile(path.join(__dirname, 'app','views', 'index.html'));
-    mainWindow.maximize();
+// Electron App
+app.whenReady().then(() => {
+  const mainWindow = new BrowserWindow({
+    titleBarStyle: 'hidden',
+    titleBarOverlay: true,
+    icon: path.join(__dirname, 'app', 'public', 'imgs', 'icon.ico')
+  });
 
-    mainWindow.on('closed', () => {
-      app.quit();
+  console.log(__dirname)
+
+  mainWindow.loadFile(path.join(__dirname, 'app','views', 'index.html'));
+  mainWindow.maximize();
+
+  mainWindow.on('closed', () => {
+    app.quit();
     });
   });
 
   app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-  })
-
-};
+    if (process.platform !== 'darwin') {
+      app.quit();
+    }
+})
 
 // Servidor
 const server = express();
@@ -57,8 +58,6 @@ server.use('/', router);
 server.get('/', (req, res) => {
   res.send("Hola mundo")
 })
-
-connect();
 
 server.listen(PORT, () => {
     console.log("server running on port " + PORT);

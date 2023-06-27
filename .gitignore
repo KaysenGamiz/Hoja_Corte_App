@@ -137,3 +137,4 @@ dist
 /HojaCorteMSI-win32-x64
 /windows_installer
 build_installer.js
+compile.py
