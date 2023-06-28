@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function(){
         console.log("Value in db", valueInDB);
 
         if (!regex.test(rccValue) || valueInDB === true) {
-          alert("Por favor, ingresa un texto válido para el RCC.");
+          alertDialog("Por favor, ingresa un texto válido para el RCC.");
           return; // Se detiene el proceso si el valor del RCC está vacío
         }
         var spanRCC = document.querySelector('.idCorte');        

@@ -46,12 +46,12 @@ function imprimir(){
 
   // Validar variables requeridas
   if (!efectivo.length && !Object.keys(comprasEfectivo).length && !Object.keys(gastosEfectivo).length && !Object.keys(vales).length && !Object.keys(dolares).length && !diferencia) {
-    alert("Debe ingresar al menos una de las siguientes variables: efectivo, comprasEfectivo, gastosEfectivo, vales, diferencia o dolares.");
+    alertDialog("Debe ingresar al menos una de las siguientes variables: efectivo, comprasEfectivo, gastosEfectivo, vales, diferencia o dolares.");
     return;
   }
 
   if (!totalSistema || !recibido || !cajero) {
-    alert("Las variables totalSistema, recibido y cajero son requeridas.");
+    alertDialog("Las variables totalSistema, recibido y cajero son requeridas.");
     return;
   }
 
@@ -451,7 +451,7 @@ function validarNumeroInput(event) {
   var inputValue = input.value.trim();
 
   if (inputValue !== "" && isNaN(inputValue)) {
-    alert("Ingresa solo números en el campo");
+    alertDialog("Ingresa solo números en el campo");
     input.value = "";
   }
 }

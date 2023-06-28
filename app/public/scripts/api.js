@@ -36,7 +36,7 @@ async function createCorteFromWeb(objetoJson) {
   
       if (response.ok) {
         console.log('Corte creado exitosamente');
-        alert('Corte creado exitosamente!');
+        alertDialog('Corte creado exitosamente!');
       } else {
         throw new Error('Error al crear el corte');
       }
