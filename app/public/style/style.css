@@ -159,10 +159,6 @@ ol {
   text-align: center; /* Centrar el texto horizontalmente */
 }
 
-.input-texto-oculto {
-  color: white; /* Iguala el color del texto al fondo del input */
-}
-
 .logo img {
   width: 400px; /* Establece el ancho deseado */
   height: auto; /* Ajusta automáticamente la altura proporcionalmente */

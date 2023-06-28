@@ -298,6 +298,7 @@ function calcularSumaTotal() {
   var tarjetaCreditoInput = parseFloat(document.querySelector('.TarjetaCredito input').value) || 0;
 
   var sumaTotal = totalAmount + totalAmountCompras + totalAmountGastos + totalAmountVales + amount8 + retiroEfectivoInput + tarjetaCreditoInput;
+  sumaTotal = parseFloat(sumaTotal.toFixed(2));
 
   var totalFinalElement = document.querySelector('.SumaTotal .TotalFinal');
 
@@ -412,7 +413,7 @@ function calcularDiferencia() {
   var totalDevoluciones = parseFloat(document.getElementById("totalAmountDevoluciones").textContent); // Obtener el valor de totalAmountDevoluciones y convertirlo a número
 
   var diferenciaFinal = totalSistema - sumaTotal - totalDevoluciones; // Calcular la diferencia, considerando las devoluciones
-  diferenciaFinal = diferenciaFinal.toFixed(2);
+  diferenciaFinal = parseFloat(diferenciaFinal.toFixed(2));
 
   // Actualizar el contenido del span correspondiente según la diferencia
   var sobranteSpan = document.querySelector(".SobrantePlace");
