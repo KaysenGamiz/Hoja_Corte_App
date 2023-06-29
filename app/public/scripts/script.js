@@ -33,10 +33,10 @@ function mostrarFechaHora() {
 function imprimir(){
   mostrarFechaHora();
   calculateTotal();
-  calculateTotalByClassName('ComprasEfectivo', 'totalAmountCompras');
-  calculateTotalByClassName('GastosEfectivo', 'totalAmountGastos');
-  calculateTotalByClassName('Vales', 'totalAmountVales');
-  calculateTotalByClassName('Devoluciones', 'totalAmountDevoluciones');   
+  calculateTotalConceptoCantidad('ComprasEfectivo', 'totalAmountCompras');
+  calculateTotalConceptoCantidad('GastosEfectivo', 'totalAmountGastos');
+  calculateTotalConceptoCantidad('Vales', 'totalAmountVales');
+  calculateTotalConceptoCantidad('Devoluciones', 'totalAmountDevoluciones');   
   totalCorte = calcularSumaTotal();
   diferencia = calcularDiferencia();
   obtenerComprasEfectivo();
@@ -132,10 +132,10 @@ function handleEnterKey(event) {
     }
 
     calculateTotal();
-    calculateTotalByClassName('ComprasEfectivo', 'totalAmountCompras');
-    calculateTotalByClassName('GastosEfectivo', 'totalAmountGastos');
-    calculateTotalByClassName('Vales', 'totalAmountVales');
-    calculateTotalByClassName('Devoluciones', 'totalAmountDevoluciones');   
+    calculateTotalConceptoCantidad('ComprasEfectivo', 'totalAmountCompras');
+    calculateTotalConceptoCantidad('GastosEfectivo', 'totalAmountGastos');
+    calculateTotalConceptoCantidad('Vales', 'totalAmountVales');
+    calculateTotalConceptoCantidad('Devoluciones', 'totalAmountDevoluciones');   
     calcularSumaTotal();
     obtenerComprasEfectivo();
     obtenerGastosEfectivo(); 
@@ -265,7 +265,7 @@ function removeInput(containerClassName) {
 
 // Calculate Totales
 
-function calculateTotalByClassName(containerClassName, totalElementId) {
+function calculateTotalConceptoCantidad(containerClassName, totalElementId) {
   var inputs = document.querySelectorAll('.' + containerClassName + ' .input-container input[name^="fname"]');
   var total = Array.from(inputs).reduce(function(sum, input, index) {
     if (index % 2 !== 0) {
