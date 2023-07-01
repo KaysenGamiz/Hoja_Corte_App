@@ -1,13 +1,12 @@
 const path = require('path');
 const { Corte } = require(path.join(__dirname, 'corteSchema.js'));
-const { CorteObj } = require(path.join(__dirname, 'corte.js'));
-const mongoose = require('mongoose');
 
 async function createCorte(corteObject) {
 
     const nuevoCorte = new Corte({
         RCC: corteObject.RCC,
         efectivo: corteObject.efectivo,
+        totalEfectivo: corteObject.totalEfectivo,
         dolares: corteObject.dolares,
         retiroEnEfectivo: corteObject.retiroEnEfectivo,
         tarjeta: corteObject.tarjeta,
@@ -22,6 +21,7 @@ async function createCorte(corteObject) {
         cajero: corteObject.cajero,
         fecha: corteObject.fecha,
         hora: corteObject.hora,
+        fechaHora: corteObject.fechaHora
     });
 
     await nuevoCorte.save();

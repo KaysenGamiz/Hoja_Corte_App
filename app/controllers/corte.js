@@ -8,9 +8,10 @@ class CorteException {
 }
 
 class CorteObj {
-    constructor(RCC, efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalCorte, totalSistema, diferencia, recibido, cajero, fecha, hora){
+    constructor(RCC, efectivo, totalEfectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalCorte, totalSistema, diferencia, recibido, cajero, fecha, hora, fechaHora){
         this._RCC = RCC;
         this._efectivo = efectivo;
+        this._totalEfectivo = totalEfectivo;
         this._dolares = dolares;
         this._retiroEnEfectivo = parseFloat(retiroEnEfectivo);
         this._tarjeta = parseFloat(tarjeta);
@@ -25,6 +26,7 @@ class CorteObj {
         this._cajero = cajero;
         this._fecha = fecha;
         this._hora = hora;
+        this._fechaHora = fechaHora;
     }
 
     // Getters
@@ -35,6 +37,10 @@ class CorteObj {
 
     get efectivo() {
         return this._efectivo;
+    }
+
+    get totalEfectivo() {
+        return this._totalEfectivo;
     }
 
     get dolares() {
@@ -93,6 +99,10 @@ class CorteObj {
         return this._hora;
     }
 
+    get fechaHora() {
+        return this._fechaHora;
+    }
+
     // Setters
 
     set RCC(value) {
@@ -101,6 +111,10 @@ class CorteObj {
 
     set efectivo(value) {
         this._efectivo = value;
+    }
+
+    set totalEfectivo(value) {
+        this._totalEfectivo = value;
     }
 
     set dolares(value) {
@@ -175,6 +189,10 @@ class CorteObj {
         }
     }
 
+    set fechaHora(value) {
+        this._fechaHora = value;
+    }
+
     async initializeRCC() {
         try {
             let latestRCC = await getLatestRCC();
@@ -194,6 +212,7 @@ class CorteObj {
         const {
             RCC,
             efectivo,
+            totalEfectivo,
             dolares,
             retiroEnEfectivo,
             tarjeta,
@@ -207,16 +226,18 @@ class CorteObj {
             recibido,
             cajero,
             fecha,
-            hora
+            hora,
+            fechaHora
         } = parsedJson;
 
-        return new CorteObj(RCC, efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalCorte, totalSistema, diferencia, recibido, cajero, fecha, hora);
+        return new CorteObj(RCC, efectivo, totalEfectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalCorte, totalSistema, diferencia, recibido, cajero, fecha, hora, fechaHora);
     }
 
     static fromObject(obj) {
         const {
             RCC,
             efectivo,
+            totalEfectivo,
             dolares,
             retiroEnEfectivo,
             tarjeta,
@@ -230,10 +251,11 @@ class CorteObj {
             recibido,
             cajero,
             fecha,
-            hora
+            hora,
+            fechaHora
         } = obj;
 
-        return new CorteObj(RCC, efectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalCorte, totalSistema, diferencia, recibido, cajero, fecha, hora); 
+        return new CorteObj(RCC, efectivo, totalEfectivo, dolares, retiroEnEfectivo, tarjeta, comprasEfectivo, gastosEfectivo, vales, devoluciones, totalCorte, totalSistema, diferencia, recibido, cajero, fecha, hora, fechaHora); 
     }
       
 }

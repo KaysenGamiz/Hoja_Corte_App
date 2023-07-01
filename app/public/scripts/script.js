@@ -9,6 +9,7 @@ function mostrarFechaHora() {
 
   // Obtener la fecha y hora actual
   var fechaActual = new Date();
+  fechaHora = fechaActual;
 
   // Obtener los componentes de fecha y hora
   var dia = fechaActual.getDate();
@@ -32,6 +33,7 @@ function mostrarFechaHora() {
 // Impresion
 function imprimir(){
   mostrarFechaHora();
+  updateDolares();
   calculateTotal();
   calculateTotalConceptoCantidad('ComprasEfectivo', 'totalAmountCompras');
   calculateTotalConceptoCantidad('GastosEfectivo', 'totalAmountGastos');
@@ -83,6 +85,7 @@ for (const key in devoluciones) {
 var corteData = {
   RCC: RCC,
   efectivo: efectivo,
+  totalEfectivo: totalEfectivo,
   dolares: dolares,
   retiroEnEfectivo: retiroEnEfectivo,
   tarjeta: tarjeta,
@@ -96,7 +99,8 @@ var corteData = {
   recibido: recibido,
   cajero: cajero,
   fecha: fecha,
-  hora: hora
+  hora: hora,
+  fechaHora: fechaHora
 };
 
   createCorteFromWeb(corteData);
@@ -154,18 +158,18 @@ function updateAmount(input, index) {
   
   if (input.value === "") {
     amountSpan.textContent = '__________';
-    efectivo[index - 1] = null;  // Si el campo está vacío, se establece el valor del producto como null
+    efectivo[originalValue] = 0;
   } else {
     var newValue = parseInt(input.value) * originalValue;
     amountSpan.textContent = isNaN(newValue) ? '__________' : newValue;
-    efectivo[index - 1] = isNaN(newValue) ? null : newValue;  // Se guarda el valor del producto en el arreglo
+    efectivo[originalValue] = isNaN(newValue) ? 0 : parseInt(input.value);
   }
 }
 
 function updateMonedas(input) {
   var amountSpan = document.getElementById('amount7');
   amountSpan.textContent = input.value;
-  efectivo[6] = input.value === "" ? null : parseFloat(input.value);  // Se guarda el valor de las monedas en el arreglo
+  efectivo['monedas'] = input.value === "" ? 0 : parseFloat(input.value);  // Se guarda el valor de las monedas en el arreglo
 }
 
 // Update Dlls
@@ -280,12 +284,17 @@ function calculateTotalConceptoCantidad(containerClassName, totalElementId) {
 }
 
 function calculateTotal() {
-  var total = efectivo.reduce(function(sum, value) {
-    return sum + (value || 0);
+  var total = Object.entries(efectivo).reduce(function(sum, [key, value]) {
+    if (key !== "monedas") {
+      return sum + (parseInt(key) * value);
+    } else {
+      return sum + value;
+    }
   }, 0);
 
   var totalAmountElement = document.getElementById('totalAmount');
   totalAmountElement.textContent = isNaN(total) ? '___________' : total;
+  totalEfectivo = total;
 }
 
 function calcularSumaTotal() {
@@ -338,7 +347,13 @@ function obtenerComprasEfectivo() {
       }
     });
   });
+
+  if (Object.keys(comprasEfectivo).length === 0) {
+    comprasEfectivo = {EMPTY: 0};
+  }
+
 }
+
 
 function obtenerGastosEfectivo() {
   const gastosEfectivoItems = document.querySelectorAll('li.GastosEfectivo');
@@ -359,6 +374,11 @@ function obtenerGastosEfectivo() {
       }
     });
   });
+
+  if (Object.keys(gastosEfectivo).length === 0) {
+    gastosEfectivo = {EMPTY: 0};
+  }
+
 }
 
 function obtenerVales() {
@@ -380,6 +400,11 @@ function obtenerVales() {
       }
     });
   });
+
+  if (Object.keys(vales).length === 0) {
+    vales = {EMPTY: 0};
+  }
+
 }
 
 function obtenerDevoluciones() {
@@ -401,6 +426,11 @@ function obtenerDevoluciones() {
       }
     });
   });
+
+  if (Object.keys(devoluciones).length === 0) {
+    devoluciones = {EMPTY: 0};
+  }
+
 }
 
 function calcularDiferencia() {

@@ -6,7 +6,10 @@ const corteSchema = new mongoose.Schema({
         required: true
     },
     efectivo: {
-        type: [Number]
+        type: mongoose.Schema.Types.Mixed
+    },
+    totalEfectivo: {
+        type: Number
     },
     dolares: {
         type: mongoose.Schema.Types.Mixed
@@ -49,6 +52,9 @@ const corteSchema = new mongoose.Schema({
     },
     hora: {
         type: String
+    },
+    fechaHora: {
+        type: Date
     }
 });
 
