@@ -39,3 +39,4 @@ La versión actual de la aplicación es 1.0.2 y se considera estable. Sin embarg
 ## Futuras mejoras
 
 En el futuro, se planea desarrollar una versión más avanzada de la aplicación dirigida a administradores de negocios. Esta versión ampliada utilizará la misma base de datos de los cortes de caja generados por esta aplicación, pero incluirá funcionalidades adicionales para la administración del negocio.
+
