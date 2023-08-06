@@ -58,6 +58,6 @@ const corteSchema = new mongoose.Schema({
     }
 });
 
-const Corte = mongoose.model('Cortes', corteSchema);
+const Corte = mongoose.model('lovestrologie_cortes', corteSchema);
 
 module.exports = { Corte: Corte };
