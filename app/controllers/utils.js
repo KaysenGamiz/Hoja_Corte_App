@@ -1,5 +1,7 @@
 const path = require('path');
+const fs = require('fs');
 const { Corte } = require(path.join(__dirname, 'corteSchema.js'));
+const rutaArchivo = path.join(__dirname, '..', 'local_data', 'cortes.json');
 
 async function getLatestRCC() {
 
@@ -59,4 +61,37 @@ function isEmpty(value){
     }
 }
 
-module.exports = {getLatestRCC, getLatestPlusOneRCC, checkRCCinDB, isEmpty};
+function leerArchivoJSON(callback) {
+  fs.readFile(rutaArchivo, (err, data) => {
+    if (err) {
+      return callback(err, null);
+    }
+    try {
+      const jsonData = JSON.parse(data);
+      callback(null, jsonData);
+    } catch (parseError) {
+      callback(parseError, null);
+    }
+  });
+}
+
+function escribirArchivoJSON(datos, callback) {
+  fs.writeFile(rutaArchivo, JSON.stringify(datos, null, 2), err => {
+    callback(err);
+  });
+}
+
+function validarYActualizarCorteLocal(cortes, corteNuevo) {
+  const indiceExistente = cortes.findIndex(corte => 
+    corte.RCC === corteNuevo.RCC && corte.fecha === corteNuevo.fecha);
+
+  if (indiceExistente !== -1) {
+    cortes[indiceExistente] = corteNuevo; // Actualiza el corte existente
+  } else {
+    cortes.push(corteNuevo); // Agrega un nuevo corte
+  }
+
+  return cortes;
+}
+
+module.exports = {getLatestRCC, getLatestPlusOneRCC, checkRCCinDB, isEmpty, leerArchivoJSON, escribirArchivoJSON, validarYActualizarCorteLocal};
