@@ -103,10 +103,18 @@ var corteData = {
   fechaHora: fechaHora
 };
 
-  createCorteFromWeb(corteData);
+  createCorteLocal(corteData);
+  const result = createCorteFromWeb(corteData);
+  if(result) {
+      console.log("Operación exitosa");
+      alertDialog('Corte creado exitosamente');
+      window.print();
+      location.reload();
+  } else {
+      console.log("Operación fallida");
+      alertDialog('No se pudo completar la generacion del corte, vuelva a intentarlo.');
+  }
 
-  window.print();
-  location.reload();
 }
 
 // Event Handler

@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
+const fs = require('fs');
 const { Corte } = require(path.join(__dirname, '..', 'controllers', 'corteSchema.js'));
-const { getLatestRCC , getLatestPlusOneRCC, checkRCCinDB} = require(path.join(__dirname, '..', 'controllers', 'utils.js'));
+const { getLatestRCC , getLatestPlusOneRCC, checkRCCinDB, leerArchivoJSON, escribirArchivoJSON, validarYActualizarCorteLocal} = require(path.join(__dirname, '..', 'controllers', 'utils.js'));
 const { createCorte , getCortes } = require(path.join(__dirname, '..', 'controllers', 'data_handler.js'));
 const { CorteObj } = require(path.join(__dirname, '..', 'controllers','corte.js'));
+const config = require(path.join(__dirname, '..', 'config', 'config.js'));
 
 // Aqui se haran las rutas de corte para el CRUD con la base de datos
 
@@ -75,6 +77,28 @@ router.post('/createCorte', async (req, res) => {
     createCorte(nuevoCorte);
   
     res.status(200).send('Corte creado!');
+});
+
+// POST Crear Corte Local
+router.post('/agregar-corte', (req, res) => {
+    const corteData = req.body;
+  
+    leerArchivoJSON((errorLectura, datos) => {
+        if (errorLectura) {
+            console.error('Error al leer el archivo:', errorLectura);
+            return res.status(500).send('Error al leer el archivo');
+        }
+  
+    const datosActualizados = validarYActualizarCorteLocal(datos, corteData);
+
+    escribirArchivoJSON(datosActualizados, errorEscritura => {
+        if (errorEscritura) {
+            console.error('Error al guardar el archivo:', errorEscritura);
+            return res.status(500).send('Error al guardar el archivo');
+        }
+            res.status(config.HTTP.OK).send('Corte procesado exitosamente');
+        });
+    });
 });
 
 module.exports = router;
