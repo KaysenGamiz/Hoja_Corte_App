@@ -138,3 +138,5 @@ dist
 /windows_installer
 build_installer.js
 compile.py
+
+/last_stable_installer

@@ -107,8 +107,8 @@ var corteData = {
   const result = createCorteFromWeb(corteData);
   if(result) {
       console.log("Operación exitosa");
-      alertDialog('Corte creado exitosamente');
       window.print();
+      alertDialog('Corte creado exitosamente');
       location.reload();
   } else {
       console.log("Operación fallida");
