@@ -94,4 +94,21 @@ function validarYActualizarCorteLocal(cortes, corteNuevo) {
   return cortes;
 }
 
-module.exports = {getLatestRCC, getLatestPlusOneRCC, checkRCCinDB, isEmpty, leerArchivoJSON, escribirArchivoJSON, validarYActualizarCorteLocal};
+async function deleteCorteByRCC(rcc) {
+  try {
+      const result = await Corte.deleteOne({ RCC: rcc });
+
+      if (result.deletedCount === 0) {
+          console.log(`No se encontró ningún corte con RCC: ${rcc}`);
+          return false;
+      } else {
+          console.log(`Corte con RCC: ${rcc} eliminado exitosamente.`);
+          return true;
+      }
+  } catch (error) {
+      console.error(`Error al intentar eliminar el corte: ${error}`);
+      return false;
+  }
+}
+
+module.exports = {getLatestRCC, getLatestPlusOneRCC, checkRCCinDB, isEmpty, leerArchivoJSON, escribirArchivoJSON, validarYActualizarCorteLocal, deleteCorteByRCC};
